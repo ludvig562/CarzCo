@@ -13,6 +13,8 @@ namespace CarzCo
             vehicles.Add(new Car("Volvo", "V60", "1999", "grå"));
             vehicles.Add(new Motorcycle("Honda", "VTX", "2009", "blå"));
             vehicles.Add(new Truck("Scania", "Super 560", "2010", "gul"));
+
+            
             AddVehicle(vehicles);
 
             RemoveVehicle(vehicles);
@@ -24,7 +26,12 @@ namespace CarzCo
             }
 
 
-            // Console.WriteLine("\nBara bilar:");
+            Console.WriteLine("\nBara bilar:");
+            var cars = FilterVehicles<Car>(vehicles);
+            foreach(var car in cars)
+            {
+                PrintVehicleSpecs(car);
+            }
         }
 
         static void PrintVehicleSpecs(Vehicle vehicle)
@@ -82,6 +89,11 @@ namespace CarzCo
                     vehicles.Remove(vehicles[i]);
                 }
             }
+        }
+
+        static List<T> FilterVehicles<T>(List<Vehicle> vehicles) where T : Vehicle
+        {
+            return vehicles.OfType<T>().ToList();
         }
     }
 }
