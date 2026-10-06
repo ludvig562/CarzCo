@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.Design;
 using System.Reflection.PortableExecutable;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Cryptography;
 
 namespace CarzCo
 {
@@ -11,14 +13,14 @@ namespace CarzCo
             List<Vehicle> vehicles = new List<Vehicle>();
 
             //adding new vehicles
-            vehicles.Add(new Car("Volvo", "V60", "1999", "grå", 5, 200, "diesel"));
-            vehicles.Add(new Motorcycle("Honda", "VTX", "2009", "blå", 2, 300, "diesel"));
-            vehicles.Add(new Truck("Scania", "Super 560", "2010", "gul", 3, 120, "diesel"));
+            vehicles.Add(new Car("Volvo", "V60", "1999", "grå", 5, 200, "Diesel"));
+            vehicles.Add(new Motorcycle("Honda", "VTX", "2009", "blå", 2, 300, "Diesel"));
+            vehicles.Add(new Truck("Scania", "Super 560", "2010", "gul", 3, 120, "Diesel"));
 
             bool keepRuning = true;
             while (keepRuning)
             {
-                Console.WriteLine("Meny: \n[1] Lägg till ett fordon. \n[2] Ta bort ett fordon. \n[3] Visa alla fordon. \n[4] Filtrera fordon. \n[0] Exit");
+                Console.WriteLine("Meny: \n[1] Lägg till ett fordon. \n[2] Ta bort ett fordon. \n[3] Visa alla fordon. \n[4] Filtrera fordon. \n[5] Filtrera fordon efter hastighet och bränsle \n[0] Exit");
 
                 if(int.TryParse(Console.ReadLine(), out int menuChoice))
                 {
@@ -43,6 +45,14 @@ namespace CarzCo
                             foreach (var car in cars)
                             {
                                 PrintVehicleSpecs(car);
+                            }
+                            break;
+                        case 5:
+                            Console.WriteLine("\nFordon som går på diesel och har en maxhastighet över 150 km/h:");
+                            var filteredVehicles = FilterVehicles(vehicles, v => v.Gas == "Diesel" && v.MaxSpeed > 150);
+                            foreach(var filterList in filteredVehicles)
+                            {
+                                PrintVehicleSpecs(filterList);
                             }
                             break;
                         case 0:
@@ -133,9 +143,15 @@ namespace CarzCo
             }
         }
 
+        static List<Vehicle> FilterVehicles(List<Vehicle> vehicles, Func<Vehicle, bool> criteria)
+        {
+            return vehicles.Where(criteria).ToList();
+        }
+
         static List<T> FilterVehicles<T>(List<Vehicle> vehicles) where T : Vehicle
         {
             return vehicles.OfType<T>().ToList();
         }
     }
 }
+ 
