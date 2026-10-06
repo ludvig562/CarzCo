@@ -6,6 +6,11 @@ namespace CarzCo
 {
     internal class Truck : Vehicle, IDriveable
     {
+        public Truck(string brand, string model, string year, string colour)
+            : base(brand, model, year, colour)
+        {
+        }
+
         public void Drive()
         {
             Console.WriteLine("Toot toot, VRRRRRRRROOM");
