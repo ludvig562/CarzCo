@@ -6,7 +6,7 @@ namespace CarzCo
 {
     internal class Motorcycle : Vehicle, IDriveable
     {
-        public Motorcycle(string brand, string model, string year, string colour) : base(brand, model, year, colour)
+        public Motorcycle(string brand, string model, string year, string colour, int capacity, int maxSpeed, string gas) : base(brand, model, year, colour, capacity, maxSpeed, gas)
         {
         }
 

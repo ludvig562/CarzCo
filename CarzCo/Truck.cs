@@ -6,8 +6,7 @@ namespace CarzCo
 {
     internal class Truck : Vehicle, IDriveable
     {
-        public Truck(string brand, string model, string year, string colour)
-            : base(brand, model, year, colour)
+        public Truck(string brand, string model, string year, string colour, int capacity, int maxSpeed, string gas) : base(brand, model, year, colour, capacity, maxSpeed, gas)
         {
         }
 
