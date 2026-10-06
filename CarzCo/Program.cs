@@ -14,23 +14,38 @@ namespace CarzCo
             vehicles.Add(new Motorcycle("Honda", "VTX", "2009", "blå", 2, 300, "diesel"));
             vehicles.Add(new Truck("Scania", "Super 560", "2010", "gul", 3, 120, "diesel"));
 
+            Console.WriteLine("Meny: \n[1] Lägg till ett fordon. \n[2] Ta bort ett fordon. \n[3] Visa alla fordon. \n[4] Filtrera fordon. \n[0] Exit");
 
-            AddVehicle(vehicles);
 
-            RemoveVehicle(vehicles);
-
-            Console.WriteLine("Alla fordon:");
-            foreach (var vehicle in vehicles)
+            while (!int.TryParse(Console.ReadLine(), out int menuChoice))
             {
-                PrintVehicleSpecs(vehicle);
-            }
+                switch (menuChoice)
+                {
+                    case 1:
+                        AddVehicle(vehicles);
+                        break;
+                    case 2:
+                        RemoveVehicle(vehicles);
+                        break;
+                    case 3:
+                        Console.WriteLine("Alla fordon:");
+                        foreach (var vehicle in vehicles)
+                        {
+                            PrintVehicleSpecs(vehicle);
+                        }
+                        break;
+                    case 4:
+                        Console.WriteLine("\nBara bilar:");
+                        var cars = FilterVehicles<Car>(vehicles);
+                        foreach (var car in cars)
+                        {
+                            PrintVehicleSpecs(car);
+                        }
+                        break;
+                    case 0:
+                        break;
 
-
-            Console.WriteLine("\nBara bilar:");
-            var cars = FilterVehicles<Car>(vehicles);
-            foreach (var car in cars)
-            {
-                PrintVehicleSpecs(car);
+                }
             }
         }
 
