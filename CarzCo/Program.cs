@@ -10,11 +10,11 @@ namespace CarzCo
             List<Vehicle> vehicles = new List<Vehicle>();
 
             //adding new vehicles
-            vehicles.Add(new Car("Volvo", "V60", "1999", "grå"));
-            vehicles.Add(new Motorcycle("Honda", "VTX", "2009", "blå"));
-            vehicles.Add(new Truck("Scania", "Super 560", "2010", "gul"));
+            vehicles.Add(new Car("Volvo", "V60", "1999", "grå", 5, 200, "diesel"));
+            vehicles.Add(new Motorcycle("Honda", "VTX", "2009", "blå", 2, 300, "diesel"));
+            vehicles.Add(new Truck("Scania", "Super 560", "2010", "gul", 3, 120, "diesel"));
 
-            
+
             AddVehicle(vehicles);
 
             RemoveVehicle(vehicles);
@@ -28,7 +28,7 @@ namespace CarzCo
 
             Console.WriteLine("\nBara bilar:");
             var cars = FilterVehicles<Car>(vehicles);
-            foreach(var car in cars)
+            foreach (var car in cars)
             {
                 PrintVehicleSpecs(car);
             }
@@ -41,7 +41,7 @@ namespace CarzCo
 
         static void AddVehicle(List<Vehicle> vehicles)
         {
-            Console.WriteLine("Vilken typ av fordon vill du lägga till? [1] Bil [2] Motorcykel [3] Lastbil");
+            Console.WriteLine("Vilken typ av fordon vill du lägga till? \n[1] Bil \n[2] Motorcykel \n[3] Lastbil \n[4] Båt \n[5] Buss}");
             if (int.TryParse(Console.ReadLine(), out int userChoice))
             {
                 Console.WriteLine("Vilken märke är fordonet?");
@@ -52,17 +52,31 @@ namespace CarzCo
                 string year = Console.ReadLine();
                 Console.WriteLine("Vilken färg har fordonet?");
                 string colour = Console.ReadLine();
+                Console.WriteLine("Hur många personer får plats i fordonet?");
+                int.TryParse(Console.ReadLine(), out int capacity);
+                Console.WriteLine("Vad är max hastigheten?");
+                int.TryParse(Console.ReadLine(), out int maxSpeed);
+                Console.WriteLine("Vilken bränsletyp?");
+                string gas = Console.ReadLine();
+
+
 
                 switch (userChoice)
                 {
                     case 1:
-                        vehicles.Add(new Car(brand, model, year, colour));
+                        vehicles.Add(new Car(brand, model, year, colour, capacity, maxSpeed, gas));
                         break;
                     case 2:
-                        vehicles.Add(new Motorcycle(brand, model, year, colour));
+                        vehicles.Add(new Motorcycle(brand, model, year, colour, capacity, maxSpeed, gas));
                         break;
                     case 3:
-                        vehicles.Add(new Truck(brand, model, year, colour));
+                        vehicles.Add(new Truck(brand, model, year, colour, capacity, maxSpeed, gas));
+                        break;
+                    case 4:
+                        vehicles.Add(new Boat(brand, model, year, colour, capacity, maxSpeed, gas));
+                        break;
+                    case 5:
+                        vehicles.Add(new Bus(brand, model, year, colour, capacity, maxSpeed, gas));
                         break;
                     default:
                         Console.WriteLine("Du måste välja 1, 2 eller 3!");
@@ -80,9 +94,9 @@ namespace CarzCo
             Console.WriteLine("Vilket fordon vill du ta bort? (Skriv märket)");
             string brand = Console.ReadLine();
             Console.WriteLine("Skriv model:");
-            string model= Console.ReadLine();
+            string model = Console.ReadLine();
 
-            for(int i= 0; i < vehicles.Count; i++)
+            for (int i = 0; i < vehicles.Count; i++)
             {
                 if (model == vehicles[i].Model && brand == vehicles[i].Brand)
                 {
