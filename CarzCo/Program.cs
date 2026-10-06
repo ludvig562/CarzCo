@@ -15,11 +15,14 @@ namespace CarzCo
             vehicles.Add(new Truck("Scania", "Super 560", "2010", "gul"));
             AddVehicle(vehicles);
 
+            RemoveVehicle(vehicles);
+
             Console.WriteLine("Alla fordon:");
             foreach (var vehicle in vehicles)
             {
                 PrintVehicleSpecs(vehicle);
             }
+
 
             // Console.WriteLine("\nBara bilar:");
         }
@@ -62,6 +65,22 @@ namespace CarzCo
             else
             {
                 Console.WriteLine("Du måste skriva en siffra!");
+            }
+        }
+
+        static void RemoveVehicle(List<Vehicle> vehicles)
+        {
+            Console.WriteLine("Vilket fordon vill du ta bort? (Skriv märket)");
+            string brand = Console.ReadLine();
+            Console.WriteLine("Skriv model:");
+            string model= Console.ReadLine();
+
+            for(int i= 0; i < vehicles.Count; i++)
+            {
+                if (model == vehicles[i].Model && brand == vehicles[i].Brand)
+                {
+                    vehicles.Remove(vehicles[i]);
+                }
             }
         }
     }
